@@ -1,0 +1,324 @@
+/*
+ * This file is part of Caterpillar-Snake-Slug.
+ * Caterpillar-Snake-Slug is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, version 2.
+ * Caterpillar-Snake-Slug is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with Debug Vehicles. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+grf {
+    grfid: "fCSS";
+    name: string(STR_GRF_NAME);
+    desc: string(STR_GRF_DESCRIPTION);
+    version: 1;
+    min_compatible_version: 1;
+}
+
+train_width_32_px = 1;
+
+#define offs_N_x 1
+#define offs_N_y 1
+
+#define offs_NE_x -1
+#define offs_NE_y 0
+
+#define offs_E_x 1
+#define offs_E_y -3
+
+#define offs_SE_x 0
+#define offs_SE_y -5
+
+#define offs_S_x -3
+#define offs_S_y -3
+
+#define offs_SW_x -5
+#define offs_SW_y 0
+
+#define offs_W_x -3
+#define offs_W_y 1
+
+#define offs_NW_x 0
+#define offs_NW_y -1
+
+template csstmpl(d1, d2, z) {
+  [ 80*d1*z, 40*d2*z, 80*z, 40*z, (-40-2*(offs_N_y  - offs_N_x ))*z, (-22-(offs_N_x  + offs_N_y ))*z ] // N
+  [ 80*d1*z, 40*d2*z, 80*z, 40*z, (-40-2*(offs_NE_y - offs_NE_x))*z, (-22-(offs_NE_x + offs_NE_y))*z ] // NE
+  [ 80*d1*z, 40*d2*z, 80*z, 40*z, (-40-2*(offs_E_y  - offs_E_x ))*z, (-22-(offs_E_x  + offs_E_y ))*z ] // E
+  [ 80*d1*z, 40*d2*z, 80*z, 40*z, (-40-2*(offs_SE_y - offs_SE_x))*z, (-22-(offs_SE_x + offs_SE_y))*z ] // SE
+  [ 80*d1*z, 40*d2*z, 80*z, 40*z, (-40-2*(offs_S_y  - offs_S_x ))*z, (-22-(offs_S_x  + offs_S_y ))*z ] // S
+  [ 80*d1*z, 40*d2*z, 80*z, 40*z, (-40-2*(offs_SW_y - offs_SW_x))*z, (-22-(offs_SW_x + offs_SW_y))*z ] // SW
+  [ 80*d1*z, 40*d2*z, 80*z, 40*z, (-40-2*(offs_W_y  - offs_W_x ))*z, (-22-(offs_W_x  + offs_W_y ))*z ] // W
+  [ 80*d1*z, 40*d2*z, 80*z, 40*z, (-40-2*(offs_NW_y - offs_NW_x))*z, (-22-(offs_NW_x + offs_NW_y))*z ] // NW
+}
+
+#define M1(fn, g, d1, d2) \
+  spriteset          (css_##g##_##d1##_##d2,                                     "sprites_1x_8bpp/"+#fn+"-8bpp.png") { csstmpl(d1, d2, 1) } \
+  alternative_sprites(css_##g##_##d1##_##d2, ZOOM_LEVEL_IN_4X,  BIT_DEPTH_8BPP,  "sprites_4x_8bpp/"+#fn+"-8bpp.png") { csstmpl(d1, d2, 4) } \
+  alternative_sprites(css_##g##_##d1##_##d2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "sprites_1x_32bpp/"+#fn+".png")     { csstmpl(d1, d2, 1) } \
+  alternative_sprites(css_##g##_##d1##_##d2, ZOOM_LEVEL_IN_4X,  BIT_DEPTH_32BPP, "sprites_4x_32bpp/"+#fn+".png")     { csstmpl(d1, d2, 4) }
+
+#define M2(fn, g, d1) \
+  M1(fn, g, d1, 0) \
+  M1(fn, g, d1, 1) \
+  M1(fn, g, d1, 2) \
+  M1(fn, g, d1, 3) \
+  M1(fn, g, d1, 4) \
+  M1(fn, g, d1, 5) \
+  M1(fn, g, d1, 6) \
+  M1(fn, g, d1, 7) \
+  M1(fn, g, d1, 8) \
+  M1(fn, g, d1, 9) \
+  M1(fn, g, d1, 10) \
+  M1(fn, g, d1, 11) \
+  M1(fn, g, d1, 12) \
+  M1(fn, g, d1, 13) \
+  M1(fn, g, d1, 14) \
+  M1(fn, g, d1, 15) \
+  M1(fn, g, d1, 16) \
+  M1(fn, g, d1, 17) \
+  M1(fn, g, d1, 18) \
+  M1(fn, g, d1, 19) \
+  M1(fn, g, d1, 20) \
+  M1(fn, g, d1, 21) \
+  M1(fn, g, d1, 22) \
+  M1(fn, g, d1, 23) \
+  M1(fn, g, d1, 24) \
+  M1(fn, g, d1, 25) \
+  M1(fn, g, d1, 26) \
+  M1(fn, g, d1, 27) \
+  M1(fn, g, d1, 28) \
+  M1(fn, g, d1, 29) \
+  M1(fn, g, d1, 30) \
+  M1(fn, g, d1, 31) \
+switch (FEAT_TRAINS, SELF, css_##g##_##d1, \
+  (other_veh_y_offset(1) & 0xFF) | (other_veh_x_offset(1) & 0xFF) << 8 \
+) { \
+  0xFCFC: css_##g##_##d1##_8; \
+  0xFDFC: css_##g##_##d1##_9; \
+  0xFEFC: css_##g##_##d1##_10; \
+  0xFFFC: css_##g##_##d1##_11; \
+  0x00FC: css_##g##_##d1##_12; \
+  0x01FC: css_##g##_##d1##_13; \
+  0x02FC: css_##g##_##d1##_14; \
+  0x03FC: css_##g##_##d1##_15; \
+  0x04FC: css_##g##_##d1##_16; \
+  0x04FD: css_##g##_##d1##_17; \
+  0x04FE: css_##g##_##d1##_18; \
+  0x04FF: css_##g##_##d1##_19; \
+  0x0400: css_##g##_##d1##_20; \
+  0x0401: css_##g##_##d1##_21; \
+  0x0402: css_##g##_##d1##_22; \
+  0x0403: css_##g##_##d1##_23; \
+  0x0404: css_##g##_##d1##_24; \
+  0x0304: css_##g##_##d1##_25; \
+  0x0204: css_##g##_##d1##_26; \
+  0x0104: css_##g##_##d1##_27; \
+  0x0004: css_##g##_##d1##_28; \
+  0xFF04: css_##g##_##d1##_29; \
+  0xFE04: css_##g##_##d1##_30; \
+  0xFD04: css_##g##_##d1##_31; \
+  0xFC04: css_##g##_##d1##_0; \
+  0xFC03: css_##g##_##d1##_1; \
+  0xFC02: css_##g##_##d1##_2; \
+  0xFC01: css_##g##_##d1##_3; \
+  0xFC00: css_##g##_##d1##_4; \
+  0xFCFF: css_##g##_##d1##_5; \
+  0xFCFE: css_##g##_##d1##_6; \
+  0xFCFD: css_##g##_##d1##_7; \
+  default: css_##g##_##d1##_##d1; \
+}
+
+#define M3(fn, g) \
+  M2(fn, g, 0) \
+  M2(fn, g, 1) \
+  M2(fn, g, 2) \
+  M2(fn, g, 3) \
+  M2(fn, g, 4) \
+  M2(fn, g, 5) \
+  M2(fn, g, 6) \
+  M2(fn, g, 7) \
+  M2(fn, g, 8) \
+  M2(fn, g, 9) \
+  M2(fn, g, 10) \
+  M2(fn, g, 11) \
+  M2(fn, g, 12) \
+  M2(fn, g, 13) \
+  M2(fn, g, 14) \
+  M2(fn, g, 15) \
+  M2(fn, g, 16) \
+  M2(fn, g, 17) \
+  M2(fn, g, 18) \
+  M2(fn, g, 19) \
+  M2(fn, g, 20) \
+  M2(fn, g, 21) \
+  M2(fn, g, 22) \
+  M2(fn, g, 23) \
+  M2(fn, g, 24) \
+  M2(fn, g, 25) \
+  M2(fn, g, 26) \
+  M2(fn, g, 27) \
+  M2(fn, g, 28) \
+  M2(fn, g, 29) \
+  M2(fn, g, 30) \
+  M2(fn, g, 31) \
+switch (FEAT_TRAINS, SELF, css_##g##_inv, \
+  (other_veh_y_offset(1) & 0xFF) | (other_veh_x_offset(1) & 0xFF) << 8 \
+) { \
+  0xFCFC: css_##g##_8_8; \
+  0xFDFC: css_##g##_9_9; \
+  0xFEFC: css_##g##_10_10; \
+  0xFFFC: css_##g##_11_11; \
+  0x00FC: css_##g##_12_12; \
+  0x01FC: css_##g##_13_13; \
+  0x02FC: css_##g##_14_14; \
+  0x03FC: css_##g##_15_15; \
+  0x04FC: css_##g##_16_16; \
+  0x04FD: css_##g##_17_17; \
+  0x04FE: css_##g##_18_18; \
+  0x04FF: css_##g##_19_19; \
+  0x0400: css_##g##_20_20; \
+  0x0401: css_##g##_21_21; \
+  0x0402: css_##g##_22_22; \
+  0x0403: css_##g##_23_23; \
+  0x0404: css_##g##_24_24; \
+  0x0304: css_##g##_25_25; \
+  0x0204: css_##g##_26_26; \
+  0x0104: css_##g##_27_27; \
+  0x0004: css_##g##_28_28; \
+  0xFF04: css_##g##_29_29; \
+  0xFE04: css_##g##_30_30; \
+  0xFD04: css_##g##_31_31; \
+  0xFC04: css_##g##_0_0; \
+  0xFC03: css_##g##_1_1; \
+  0xFC02: css_##g##_2_2; \
+  0xFC01: css_##g##_3_3; \
+  0xFC00: css_##g##_4_4; \
+  0xFCFF: css_##g##_5_5; \
+  0xFCFE: css_##g##_6_6; \
+  0xFCFD: css_##g##_7_7; \
+} \
+switch (FEAT_TRAINS, SELF, css_##g, \
+  (other_veh_y_offset(-1) & 0xFF) | (other_veh_x_offset(-1) & 0xFF) << 8 \
+) { \
+  0xFCFC: css_##g##_24; \
+  0xFDFC: css_##g##_25; \
+  0xFEFC: css_##g##_26; \
+  0xFFFC: css_##g##_27; \
+  0x00FC: css_##g##_28; \
+  0x01FC: css_##g##_29; \
+  0x02FC: css_##g##_30; \
+  0x03FC: css_##g##_31; \
+  0x04FC: css_##g##_0; \
+  0x04FD: css_##g##_1; \
+  0x04FE: css_##g##_2; \
+  0x04FF: css_##g##_3; \
+  0x0400: css_##g##_4; \
+  0x0401: css_##g##_5; \
+  0x0402: css_##g##_6; \
+  0x0403: css_##g##_7; \
+  0x0404: css_##g##_8; \
+  0x0304: css_##g##_9; \
+  0x0204: css_##g##_10; \
+  0x0104: css_##g##_11; \
+  0x0004: css_##g##_12; \
+  0xFF04: css_##g##_13; \
+  0xFE04: css_##g##_14; \
+  0xFD04: css_##g##_15; \
+  0xFC04: css_##g##_16; \
+  0xFC03: css_##g##_17; \
+  0xFC02: css_##g##_18; \
+  0xFC01: css_##g##_19; \
+  0xFC00: css_##g##_20; \
+  0xFCFF: css_##g##_21; \
+  0xFCFE: css_##g##_22; \
+  0xFCFD: css_##g##_23; \
+  default: css_##g##_inv; \
+}
+
+M3(css00, 0)
+M3(css01, 1)
+M3(css02, 2)
+M3(css03, 3)
+M3(css04, 4)
+M3(css05, 5)
+M3(css06, 6)
+M3(css07, 7)
+M3(css08, 8)
+M3(css09, 9)
+M3(css10,10)
+M3(css11,11)
+M3(css12,12)
+M3(css13,13)
+M3(css14,14)
+M3(css15,15)
+M3(css16,16)
+M3(css17,17)
+M3(css18,18)
+M3(css19,19)
+M3(css20,20)
+M3(css21,21)
+M3(css22,22)
+M3(css23,23)
+M3(css24,24)
+
+switch (FEAT_TRAINS, SELF, css_main,
+  (other_veh_z_offset(-1) & 0xFF) | (other_veh_z_offset(1) & 0xFF) << 8
+) {
+  0x02FE: css_0;
+  0x01FE: css_1;
+  0x00FE: css_2;
+  0xFFFE: css_3;
+  0xFEFE: css_4;
+  0x02FF: css_5;
+  0x01FF: css_6;
+  0x00FF: css_7;
+  0xFFFF: css_8;
+  0xFEFF: css_9;
+  0x0200: css_10;
+  0x0100: css_11;
+  0x0000: css_12;
+  0xFF00: css_13;
+  0xFE00: css_14;
+  0x0201: css_15;
+  0x0101: css_16;
+  0x0001: css_17;
+  0xFF01: css_18;
+  0xFE01: css_19;
+  0x0202: css_20;
+  0x0102: css_21;
+  0x0002: css_22;
+  0xFF02: css_23;
+  0xFE02: css_24;
+  default: css_12;
+}
+
+item(FEAT_TRAINS, item_css, 1000) {
+  property {
+    name: string(STR_VEHICLE_NAME);
+    climates_available: ALL_CLIMATES;
+    introduction_date: date(01,01,01);
+    model_life: 255;
+    vehicle_life: 15;
+    reliability_decay: 20;
+    refittable_cargo_classes: bitmask(CC_PIECE_GOODS, CC_EXPRESS);
+    non_refittable_cargo_classes: bitmask(CC_PASSENGERS, CC_REFRIGERATED);
+    loading_speed: 5;
+    cost_factor: 1;
+    running_cost_factor: 1;
+    sprite_id: SPRITE_ID_NEW_TRAIN;
+    speed: 50 km/h;
+    misc_flags: 0;
+    refit_cost: 0;
+    track_type: RAIL;
+    power: 1000 hp;
+    running_cost_base: RUNNING_COST_DIESEL;
+    cargo_capacity: 20;
+    weight: 100 ton;
+    engine_class: ENGINE_CLASS_DIESEL;
+    tractive_effort_coefficient: 0.3;
+    length: 4;
+    visual_effect_and_powered: VISUAL_EFFECT_DISABLE;
+  }
+  graphics {
+    default: css_main;
+  }
+}
