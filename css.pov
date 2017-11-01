@@ -39,24 +39,28 @@ light_source {
 #declare Slice = sphere {
   <0,0,0>, 0.125
   scale <1, 1, 0.6>
-  pigment {
-    radial frequency 8
-    color_map {
-      [0.0  color rgb <0.0, 0.1, 0.6> ]
-      [0.24 color rgb <0.0, 0.1, 0.6> ]
-      [0.26 color rgb <0.2, 0.7, 0.2> ]
-      [0.74 color rgb <0.2, 0.7, 0.2> ]
-      [0.75 color rgb <0.0, 0.1, 0.6> ]
-      [1.0  color rgb <0.0, 0.1, 0.6> ]
+  texture {
+    pigment {
+      radial frequency 8
+      color_map {
+        [0.0  color rgb <0.0, 0.1, 0.6> ]
+        [0.24 color rgb <0.0, 0.1, 0.6> ]
+        [0.26 color rgb <0.2, 0.7, 0.2> ]
+        [0.74 color rgb <0.2, 0.7, 0.2> ]
+        [0.75 color rgb <0.0, 0.1, 0.6> ]
+        [1.0  color rgb <0.0, 0.1, 0.6> ]
+      }
+      rotate x*90
     }
-    rotate x*90
+
+    finish {
+      diffuse 0.7
+    }
   }
-  finish {
-    diffuse 0.7
-  }
+  interior_texture { pigment { color rgbf <1,1,1,1> } }
 }
 
-#macro Part(d1, d2)
+#macro Part(d1, d2, ht)
 
 #local s = spline {
   cubic_spline
@@ -66,23 +70,39 @@ light_source {
    1.0, d2
 }
 
-#local i = -2;
-#while (i <= 2)
+#if (ht <= 0)
+#local i1 = -2;
+#else
+#local i1 = 0;
+#end
+#if (ht >= 0)
+#local i2 = 2;
+#else
+#local i2 = 0;
+#end
+
+#local i = i1;
+#while (i <= i2)
 intersection {
   object {
     Slice
     rotate z*(360/8)*(i*0.25)
     Spline_Trans(s, i*0.2499, y, 0.0001, 0)
   }
+#if (ht <= 0)
   plane {
-    -z, 0.01
-    Spline_Trans(s, max(i-0.99,-2)*0.2499, y, 0.0001, 0)
+    -z, 0.02
+    Spline_Trans(s, max(i-0.51,-2)*0.2499, y, 0.0001, 0)
+    pigment { color rgbf <1,1,1,1> }
   }
+#end
+#if (ht >= 0)
   plane {
-    z, 0.01
-    Spline_Trans(s, min(i+0.99, 2)*0.2499, y, 0.0001, 0)
+    z, 0.02
+    Spline_Trans(s, min(i+0.51, 2)*0.2499, y, 0.0001, 0)
+    pigment { color rgbf <1,1,1,1> }
   }
-  cutaway_textures
+#end
   translate y*0.15
 }
 #local i = i+1;
@@ -171,11 +191,22 @@ sphere_sweep {
 #declare o1 = offsets[d1] + ottd(0,0,z1);
 #declare o2 = offsets[d2] + ottd(0,0,z2);
 union {
-  Part(o1, o2)
+  Part(o1, o2, 0)
   translate <1, 0, -1>*(d2-16) + <1, 0, 1>*(d1-16) - y*0.1
 }
 
 #end
+
+union {
+  Part(o1, -o1, -1)
+  translate <1, 0, -1>*16 + <1, 0, 1>*(d1-16) - y*0.1
+}
+
+union {
+  Part(-o1, o1, 1)
+  translate <1, 0, -1>*(d1-16) + <1, 0, 1>*16 - y*0.1
+}
+
 #end
 
 /*

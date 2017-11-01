@@ -89,6 +89,7 @@ template csstmpl(d1, d2, z) {
   M1(fn, g, d1, 29) \
   M1(fn, g, d1, 30) \
   M1(fn, g, d1, 31) \
+  M1(fn, g, d1, 32) \
 switch (FEAT_TRAINS, SELF, css_##g##_##d1, \
   (other_veh_y_offset(1) & 0xFF) | (other_veh_x_offset(1) & 0xFF) << 8 \
 ) { \
@@ -160,6 +161,7 @@ switch (FEAT_TRAINS, SELF, css_##g##_##d1, \
   M2(fn, g, 29) \
   M2(fn, g, 30) \
   M2(fn, g, 31) \
+  M2(fn, g, 32) \
 switch (FEAT_TRAINS, SELF, css_##g##_inv, \
   (other_veh_y_offset(1) & 0xFF) | (other_veh_x_offset(1) & 0xFF) << 8 \
 ) { \
@@ -232,6 +234,78 @@ switch (FEAT_TRAINS, SELF, css_##g, \
   0xFCFE: css_##g##_22; \
   0xFCFD: css_##g##_23; \
   default: css_##g##_inv; \
+} \
+switch (FEAT_TRAINS, SELF, css_front_##g, \
+  (other_veh_y_offset(1) & 0xFF) | (other_veh_x_offset(1) & 0xFF) << 8 \
+) { \
+  0xFCFC: css_##g##_32_8; \
+  0xFDFC: css_##g##_32_9; \
+  0xFEFC: css_##g##_32_10; \
+  0xFFFC: css_##g##_32_11; \
+  0x00FC: css_##g##_32_12; \
+  0x01FC: css_##g##_32_13; \
+  0x02FC: css_##g##_32_14; \
+  0x03FC: css_##g##_32_15; \
+  0x04FC: css_##g##_32_16; \
+  0x04FD: css_##g##_32_17; \
+  0x04FE: css_##g##_32_18; \
+  0x04FF: css_##g##_32_19; \
+  0x0400: css_##g##_32_20; \
+  0x0401: css_##g##_32_21; \
+  0x0402: css_##g##_32_22; \
+  0x0403: css_##g##_32_23; \
+  0x0404: css_##g##_32_24; \
+  0x0304: css_##g##_32_25; \
+  0x0204: css_##g##_32_26; \
+  0x0104: css_##g##_32_27; \
+  0x0004: css_##g##_32_28; \
+  0xFF04: css_##g##_32_29; \
+  0xFE04: css_##g##_32_30; \
+  0xFD04: css_##g##_32_31; \
+  0xFC04: css_##g##_32_0; \
+  0xFC03: css_##g##_32_1; \
+  0xFC02: css_##g##_32_2; \
+  0xFC01: css_##g##_32_3; \
+  0xFC00: css_##g##_32_4; \
+  0xFCFF: css_##g##_32_5; \
+  0xFCFE: css_##g##_32_6; \
+  0xFCFD: css_##g##_32_7; \
+} \
+switch (FEAT_TRAINS, SELF, css_back_##g, \
+  (other_veh_y_offset(-1) & 0xFF) | (other_veh_x_offset(-1) & 0xFF) << 8 \
+) { \
+  0xFCFC: css_##g##_24_32; \
+  0xFDFC: css_##g##_25_32; \
+  0xFEFC: css_##g##_26_32; \
+  0xFFFC: css_##g##_27_32; \
+  0x00FC: css_##g##_28_32; \
+  0x01FC: css_##g##_29_32; \
+  0x02FC: css_##g##_30_32; \
+  0x03FC: css_##g##_31_32; \
+  0x04FC: css_##g##_0_32; \
+  0x04FD: css_##g##_1_32; \
+  0x04FE: css_##g##_2_32; \
+  0x04FF: css_##g##_3_32; \
+  0x0400: css_##g##_4_32; \
+  0x0401: css_##g##_5_32; \
+  0x0402: css_##g##_6_32; \
+  0x0403: css_##g##_7_32; \
+  0x0404: css_##g##_8_32; \
+  0x0304: css_##g##_9_32; \
+  0x0204: css_##g##_10_32; \
+  0x0104: css_##g##_11_32; \
+  0x0004: css_##g##_12_32; \
+  0xFF04: css_##g##_13_32; \
+  0xFE04: css_##g##_14_32; \
+  0xFD04: css_##g##_15_32; \
+  0xFC04: css_##g##_16_32; \
+  0xFC03: css_##g##_17_32; \
+  0xFC02: css_##g##_18_32; \
+  0xFC01: css_##g##_19_32; \
+  0xFC00: css_##g##_20_32; \
+  0xFCFF: css_##g##_21_32; \
+  0xFCFE: css_##g##_22_32; \
+  0xFCFD: css_##g##_23_32; \
 }
 
 M3(css00, 0)
@@ -260,7 +334,7 @@ M3(css22,22)
 M3(css23,23)
 M3(css24,24)
 
-switch (FEAT_TRAINS, SELF, css_main,
+switch (FEAT_TRAINS, SELF, css_viewport_middle,
   (other_veh_z_offset(-1) & 0xFF) | (other_veh_z_offset(1) & 0xFF) << 8
 ) {
   0x02FE: css_0;
@@ -289,6 +363,56 @@ switch (FEAT_TRAINS, SELF, css_main,
   0xFF02: css_23;
   0xFE02: css_24;
   default: css_12;
+}
+
+switch (FEAT_TRAINS, SELF, css_viewport_front,
+  (other_veh_z_offset(1) & 0xFF)
+) {
+  0xFE: css_front_20;
+  0xFF: css_front_16;
+  0x00: css_front_12;
+  0x01: css_front_8;
+  0x02: css_front_4;
+  default: css_front_12;
+}
+
+switch (FEAT_TRAINS, SELF, css_viewport_back,
+  (other_veh_z_offset(-1) & 0xFF)
+) {
+  0x02: css_back_20;
+  0x01: css_back_16;
+  0x00: css_back_12;
+  0xFF: css_back_8;
+  0xFE: css_back_4;
+  default: css_back_12;
+}
+
+switch (FEAT_TRAINS, SELF, css_viewport2, position_in_vehid_chain_from_end) {
+  0: css_viewport_back;
+  default: css_viewport_middle;
+}
+
+switch (FEAT_TRAINS, SELF, css_viewport, position_in_vehid_chain) {
+  0: css_viewport_front;
+  default: css_viewport2;
+}
+
+switch (FEAT_TRAINS, SELF, css_depot2, position_in_vehid_chain_from_end ) {
+  0: css_12_0_32;
+  default: css_12_0_16;
+}
+
+switch (FEAT_TRAINS, SELF, css_depot, position_in_vehid_chain) {
+  0: css_12_32_16;
+  default: css_depot2;
+}
+
+switch (FEAT_TRAINS, SELF, css_main,
+  getbits(extra_callback_info1, 0, 8)
+) {
+  0x00..0x0F: css_viewport;
+  0x10..0x1F: css_depot;
+  default: css_12_0_16;
 }
 
 item(FEAT_TRAINS, item_css, 1000) {
