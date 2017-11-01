@@ -11,7 +11,7 @@
 #declare camwidth = 33;
 
 #macro ottd(X,Y,Z)
-  <X*0.1,Z*sqrt(6)/60,Y*0.1>
+  <X/16,Z*sqrt(6)/6/16,Y/16>
 #end
 
 #declare camdir = <1,sqrt(2/3),-1>;
@@ -37,7 +37,7 @@ light_source {
 }
 
 #declare Slice = sphere {
-  <0,0,0>, 0.2
+  <0,0,0>, 0.125
   scale <1, 1, 0.6>
   pigment {
     radial frequency 8
@@ -172,7 +172,7 @@ sphere_sweep {
 #declare o2 = offsets[d2] + ottd(0,0,z2);
 union {
   Part(o1, o2)
-  translate <1, 0, -1>*(d2-16) + <1, 0, 1>*(d1-16) - 0.5*y
+  translate <1, 0, -1>*(d2-16) + <1, 0, 1>*(d1-16) - y*0.1
 }
 
 #end

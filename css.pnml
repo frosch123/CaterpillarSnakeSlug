@@ -40,14 +40,14 @@ train_width_32_px = 1;
 #define offs_NW_y 0 // -1
 
 template csstmpl(d1, d2, z) {
-  [ 40*d1*z, (10+20*d2)*z, 40*z, 20*z, (-19-2*(offs_N_y  - offs_N_x ))*z, (-10-(offs_N_x  + offs_N_y ))*z ] // N
-  [ 40*d1*z, (10+20*d2)*z, 40*z, 20*z, (-19-2*(offs_NE_y - offs_NE_x))*z, (-10-(offs_NE_x + offs_NE_y))*z ] // NE
-  [ 40*d1*z, (10+20*d2)*z, 40*z, 20*z, (-19-2*(offs_E_y  - offs_E_x ))*z, (-10-(offs_E_x  + offs_E_y ))*z ] // E
-  [ 40*d1*z, (10+20*d2)*z, 40*z, 20*z, (-19-2*(offs_SE_y - offs_SE_x))*z, (-10-(offs_SE_x + offs_SE_y))*z ] // SE
-  [ 40*d1*z, (10+20*d2)*z, 40*z, 20*z, (-19-2*(offs_S_y  - offs_S_x ))*z, (-10-(offs_S_x  + offs_S_y ))*z ] // S
-  [ 40*d1*z, (10+20*d2)*z, 40*z, 20*z, (-19-2*(offs_SW_y - offs_SW_x))*z, (-10-(offs_SW_x + offs_SW_y))*z ] // SW
-  [ 40*d1*z, (10+20*d2)*z, 40*z, 20*z, (-19-2*(offs_W_y  - offs_W_x ))*z, (-10-(offs_W_x  + offs_W_y ))*z ] // W
-  [ 40*d1*z, (10+20*d2)*z, 40*z, 20*z, (-19-2*(offs_NW_y - offs_NW_x))*z, (-10-(offs_NW_x + offs_NW_y))*z ] // NW
+  [ 64*d1*z, (32*d2)*z, 64*z, 32*z, (-31-2*(offs_N_y  - offs_N_x ))*z, (-16-(offs_N_x  + offs_N_y ))*z ] // N
+  [ 64*d1*z, (32*d2)*z, 64*z, 32*z, (-31-2*(offs_NE_y - offs_NE_x))*z, (-16-(offs_NE_x + offs_NE_y))*z ] // NE
+  [ 64*d1*z, (32*d2)*z, 64*z, 32*z, (-31-2*(offs_E_y  - offs_E_x ))*z, (-16-(offs_E_x  + offs_E_y ))*z ] // E
+  [ 64*d1*z, (32*d2)*z, 64*z, 32*z, (-31-2*(offs_SE_y - offs_SE_x))*z, (-16-(offs_SE_x + offs_SE_y))*z ] // SE
+  [ 64*d1*z, (32*d2)*z, 64*z, 32*z, (-31-2*(offs_S_y  - offs_S_x ))*z, (-16-(offs_S_x  + offs_S_y ))*z ] // S
+  [ 64*d1*z, (32*d2)*z, 64*z, 32*z, (-31-2*(offs_SW_y - offs_SW_x))*z, (-16-(offs_SW_x + offs_SW_y))*z ] // SW
+  [ 64*d1*z, (32*d2)*z, 64*z, 32*z, (-31-2*(offs_W_y  - offs_W_x ))*z, (-16-(offs_W_x  + offs_W_y ))*z ] // W
+  [ 64*d1*z, (32*d2)*z, 64*z, 32*z, (-31-2*(offs_NW_y - offs_NW_x))*z, (-16-(offs_NW_x + offs_NW_y))*z ] // NW
 }
 
 #define M1(fn, g, d1, d2) \
