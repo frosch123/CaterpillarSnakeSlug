@@ -7,11 +7,11 @@ all: css.grf
 
 sprites_1x_32bpp/css24.png: css.pov
 	mkdir -p sprites_1x_32bpp
-	povray -D +ua +W2640 +H1320 +KF24 +KFI0 +KFF24 +Osprites_1x_32bpp/ $^
+	povray -D +A +ua +W1320 +H660 +KF24 +KFI0 +KFF24 +Osprites_1x_32bpp/ $^
 
 sprites_4x_32bpp/css24.png: css.pov
 	mkdir -p sprites_4x_32bpp
-	povray -D +ua +W10560 +H5280 +KF24 +KFI0 +KFF24 +Osprites_4x_32bpp/ $^
+	povray -D +A +ua +W5280 +H2640 +KF24 +KFI0 +KFF24 +Osprites_4x_32bpp/ $^
 
 sprites_1x_8bpp/css24-8bpp.png: sprites_1x_32bpp/css24.png
 	echo "RGBA EATER required"

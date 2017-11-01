@@ -15,39 +15,39 @@ grf {
 
 train_width_32_px = 1;
 
-#define offs_N_x 1
-#define offs_N_y 1
+#define offs_N_x 2 // 1
+#define offs_N_y 2 // 1
 
-#define offs_NE_x -1
-#define offs_NE_y 0
+#define offs_NE_x 0  // -1
+#define offs_NE_y 0   // 0
 
-#define offs_E_x 1
-#define offs_E_y -3
+#define offs_E_x 2   // 1
+#define offs_E_y -2  // -3
 
-#define offs_SE_x 0
-#define offs_SE_y -5
+#define offs_SE_x 0   // 0
+#define offs_SE_y -4 // -5
 
-#define offs_S_x -3
-#define offs_S_y -3
+#define offs_S_x -2 // -3
+#define offs_S_y -2 // -3
 
-#define offs_SW_x -5
-#define offs_SW_y 0
+#define offs_SW_x -4 // -5
+#define offs_SW_y 0  // 0
 
-#define offs_W_x -3
-#define offs_W_y 1
+#define offs_W_x -2 // -3
+#define offs_W_y 2  // 1
 
-#define offs_NW_x 0
-#define offs_NW_y -1
+#define offs_NW_x 0  // 0
+#define offs_NW_y 0 // -1
 
 template csstmpl(d1, d2, z) {
-  [ 80*d1*z, 40*d2*z, 80*z, 40*z, (-40-2*(offs_N_y  - offs_N_x ))*z, (-22-(offs_N_x  + offs_N_y ))*z ] // N
-  [ 80*d1*z, 40*d2*z, 80*z, 40*z, (-40-2*(offs_NE_y - offs_NE_x))*z, (-22-(offs_NE_x + offs_NE_y))*z ] // NE
-  [ 80*d1*z, 40*d2*z, 80*z, 40*z, (-40-2*(offs_E_y  - offs_E_x ))*z, (-22-(offs_E_x  + offs_E_y ))*z ] // E
-  [ 80*d1*z, 40*d2*z, 80*z, 40*z, (-40-2*(offs_SE_y - offs_SE_x))*z, (-22-(offs_SE_x + offs_SE_y))*z ] // SE
-  [ 80*d1*z, 40*d2*z, 80*z, 40*z, (-40-2*(offs_S_y  - offs_S_x ))*z, (-22-(offs_S_x  + offs_S_y ))*z ] // S
-  [ 80*d1*z, 40*d2*z, 80*z, 40*z, (-40-2*(offs_SW_y - offs_SW_x))*z, (-22-(offs_SW_x + offs_SW_y))*z ] // SW
-  [ 80*d1*z, 40*d2*z, 80*z, 40*z, (-40-2*(offs_W_y  - offs_W_x ))*z, (-22-(offs_W_x  + offs_W_y ))*z ] // W
-  [ 80*d1*z, 40*d2*z, 80*z, 40*z, (-40-2*(offs_NW_y - offs_NW_x))*z, (-22-(offs_NW_x + offs_NW_y))*z ] // NW
+  [ 40*d1*z, (10+20*d2)*z, 40*z, 20*z, (-19-2*(offs_N_y  - offs_N_x ))*z, (-10-(offs_N_x  + offs_N_y ))*z ] // N
+  [ 40*d1*z, (10+20*d2)*z, 40*z, 20*z, (-19-2*(offs_NE_y - offs_NE_x))*z, (-10-(offs_NE_x + offs_NE_y))*z ] // NE
+  [ 40*d1*z, (10+20*d2)*z, 40*z, 20*z, (-19-2*(offs_E_y  - offs_E_x ))*z, (-10-(offs_E_x  + offs_E_y ))*z ] // E
+  [ 40*d1*z, (10+20*d2)*z, 40*z, 20*z, (-19-2*(offs_SE_y - offs_SE_x))*z, (-10-(offs_SE_x + offs_SE_y))*z ] // SE
+  [ 40*d1*z, (10+20*d2)*z, 40*z, 20*z, (-19-2*(offs_S_y  - offs_S_x ))*z, (-10-(offs_S_x  + offs_S_y ))*z ] // S
+  [ 40*d1*z, (10+20*d2)*z, 40*z, 20*z, (-19-2*(offs_SW_y - offs_SW_x))*z, (-10-(offs_SW_x + offs_SW_y))*z ] // SW
+  [ 40*d1*z, (10+20*d2)*z, 40*z, 20*z, (-19-2*(offs_W_y  - offs_W_x ))*z, (-10-(offs_W_x  + offs_W_y ))*z ] // W
+  [ 40*d1*z, (10+20*d2)*z, 40*z, 20*z, (-19-2*(offs_NW_y - offs_NW_x))*z, (-10-(offs_NW_x + offs_NW_y))*z ] // NW
 }
 
 #define M1(fn, g, d1, d2) \
